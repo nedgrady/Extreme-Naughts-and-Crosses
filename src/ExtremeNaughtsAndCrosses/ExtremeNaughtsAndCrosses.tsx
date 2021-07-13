@@ -5,10 +5,12 @@ import WhosTurnIsIt from "./WhosTurnIsIt"
 function ExtremeNaughtsAndCrosses(
     {
         gridSize,
-        players
+        players,
+        numberOfPiecesInARowRequiredToWin
     } : {
         gridSize: number,
-        players : string[]
+        players : string[],
+        numberOfPiecesInARowRequiredToWin?: number
     }) {
     const initialBoardState : string[][] = new Array(gridSize)
     initialBoardState.fill(new Array(gridSize))
@@ -17,10 +19,15 @@ function ExtremeNaughtsAndCrosses(
     const [boardState, setBoardState] = useState(initialBoardState)
     const [whosTurnIsIt, setWhosTurnItIs] = useState("X")
 
-    return (<><p>{whosTurnIsIt} To Move</p><Board boardState={boardState} onPiecePlaced={handlePiecePlaced}/></>)
+    return (
+        <>
+            <p>{whosTurnIsIt} To Move</p>
+            <p>{numberOfPiecesInARowRequiredToWin} in a row to win</p>
+            <Board boardState={boardState} onPiecePlaced={handlePiecePlaced}/>
+        </>)
 
     function handlePiecePlaced(rowIndex : number, columnIndex: number) {
-        console.log(`handlePiecePlaced ${rowIndex} ${columnIndex}`)
+        //console.log(`handlePiecePlaced ${rowIndex} ${columnIndex}`)
 
         if(boardState[rowIndex][columnIndex])
             return

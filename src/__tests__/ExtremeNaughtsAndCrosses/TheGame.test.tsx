@@ -126,3 +126,15 @@ test("Making a move on a taken square doesn't overwrite the existing piece", () 
 
     expect(someSquareInWhichToMakeAMove).toHaveTextContent("X")
 })
+
+
+test.each(
+    [
+        3,
+        5,
+        6
+    ]
+)("Correctly displays %p is the number of pieces in a row required to win", (numberOfPiecesInARowRequiredToWin) => {
+    render(<ExtremeNaughtsAndCrosses gridSize={10} players={["X", "O"]} numberOfPiecesInARowRequiredToWin={numberOfPiecesInARowRequiredToWin}/>)
+    expect(screen.getByText(new RegExp(`${numberOfPiecesInARowRequiredToWin} in a row to win`, 'i'), { exact: false,  }))
+})
