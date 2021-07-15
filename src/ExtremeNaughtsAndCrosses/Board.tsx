@@ -1,7 +1,7 @@
 import React from 'react'
 import './Board.css'
 
-export default function Board({ boardState, onPiecePlaced }: { boardState: string[][], onPiecePlaced : (rowIndex : number, columnIndex: number) => void}) {
+export default function Board({ boardState, onPiecePlaced }: { boardState: (string | null)[][], onPiecePlaced : (x : number, y: number) => void}) {
     return (
         <table>
             <tbody>
@@ -10,7 +10,7 @@ export default function Board({ boardState, onPiecePlaced }: { boardState: strin
                         <tr key={rowIndex}>
                             {
                                 row.map((piece, columnIndex) =>
-                                    <td key={columnIndex} data-testid={`square-${rowIndex}-${columnIndex}`} onClick={(() => onPiecePlaced(rowIndex, columnIndex)) }>{piece || "?"}</td>
+                                    <td key={`${columnIndex}-${rowIndex}`} data-testid={`square-${columnIndex}-${rowIndex}`} onClick={(() => onPiecePlaced(rowIndex, columnIndex)) }>{piece || `?`}</td>
                                 )
                             }
                         </tr>
@@ -20,3 +20,5 @@ export default function Board({ boardState, onPiecePlaced }: { boardState: strin
         </table>
     )
 }
+
+// ${x} ${y}

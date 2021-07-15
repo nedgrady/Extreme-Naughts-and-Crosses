@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import Board from "./Board"
-import WhosTurnIsIt from "./WhosTurnIsIt"
+
+type BoardState = (string | null) [][];
 
 function ExtremeNaughtsAndCrosses(
     {
@@ -12,33 +13,36 @@ function ExtremeNaughtsAndCrosses(
         players : string[],
         numberOfPiecesInARowRequiredToWin?: number
     }) {
-    const initialBoardState : string[][] = new Array(gridSize)
+    const initialBoardState : BoardState = new Array(gridSize)
     initialBoardState.fill(new Array(gridSize))
-    initialBoardState.forEach(row => row.fill(""))
+    initialBoardState.forEach(row => row.fill(null))
 
     const [boardState, setBoardState] = useState(initialBoardState)
     const [whosTurnIsIt, setWhosTurnItIs] = useState("X")
+
+    const winner = calculateWinner(boardState)
+
 
     return (
         <>
             <p>{whosTurnIsIt} To Move</p>
             <p>{numberOfPiecesInARowRequiredToWin} in a row to win</p>
             <Board boardState={boardState} onPiecePlaced={handlePiecePlaced}/>
+            {winner && <p>{winner} Wins</p>}
         </>)
 
-    function handlePiecePlaced(rowIndex : number, columnIndex: number) {
-        //console.log(`handlePiecePlaced ${rowIndex} ${columnIndex}`)
+    function handlePiecePlaced(x : number, y: number) {
 
-        if(boardState[rowIndex][columnIndex])
+        if(boardState[x][y])
             return
 
-        const boardStateCopy : string[][] = []
+        const boardStateCopy : BoardState = []
 
         boardState.forEach(row => {
             boardStateCopy.push([...row])
         })
 
-        boardStateCopy[rowIndex][columnIndex] = whosTurnIsIt
+        boardStateCopy[x][y] = whosTurnIsIt
 
         setBoardState(boardStateCopy)
 
@@ -47,6 +51,33 @@ function ExtremeNaughtsAndCrosses(
     }
 }
 
+
+function calculateWinner(boardState : BoardState) {
+
+    //console.log(boardState[3][3])
+    let winner
+
+    boardState.forEach(row => {
+        if(threeInARowPresentInArray(row))
+            winner = "X"
+    })
+
+    return winner
+}
+
+function threeInARowPresentInArray(array : unknown[]) {
+
+    for(let i = 0; i < array.length - 3; i++)
+    {
+        if(!array[i]) continue
+
+        if(array[i] === array[i + 1] && array[i] === array[i + 2])
+        {
+            return true
+        }
+    }
+    return false
+}
 
 
 // function calculateNextPlayerToMove(boardState : string[][], players: string[]) {
