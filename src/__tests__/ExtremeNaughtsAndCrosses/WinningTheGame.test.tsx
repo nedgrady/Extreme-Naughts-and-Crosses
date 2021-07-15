@@ -38,3 +38,62 @@ test('Three Xs in different row shows a winner', () => {
 
     expect(screen.getByText(/X Wins/i)).toBeInTheDocument()
 })
+
+
+test('Three Os in a row shows a winner', () => {
+    render(<ExtremeNaughtsAndCrosses gridSize={10} players={["X", "O"]} numberOfPiecesInARowRequiredToWin={3} />)
+
+    userEvent.click(screen.getByTestId('square-0-0'))
+    expect(screen.queryByText(/O Wins/i)).not.toBeInTheDocument()
+    userEvent.click(screen.getByTestId('square-5-5'))
+    expect(screen.queryByText(/O Wins/i)).not.toBeInTheDocument()
+    userEvent.click(screen.getByTestId('square-2-0'))
+    expect(screen.queryByText(/O Wins/i)).not.toBeInTheDocument()
+    userEvent.click(screen.getByTestId('square-6-5'))
+    expect(screen.queryByText(/O Wins/i)).not.toBeInTheDocument()
+    userEvent.click(screen.getByTestId('square-7-9'))
+    expect(screen.queryByText(/O Wins/i)).not.toBeInTheDocument()
+    userEvent.click(screen.getByTestId('square-7-5'))
+
+    expect(screen.getByText(/O Wins/i)).toBeInTheDocument()
+})
+
+
+test('Four Os in a row shows a winner', () => {
+    render(<ExtremeNaughtsAndCrosses gridSize={10} players={["X", "O"]} numberOfPiecesInARowRequiredToWin={4} />)
+
+    userEvent.click(screen.getByTestId('square-0-0'))
+    expect(screen.queryByText(/O Wins/i)).not.toBeInTheDocument()
+    userEvent.click(screen.getByTestId('square-5-5'))
+    expect(screen.queryByText(/O Wins/i)).not.toBeInTheDocument()
+    userEvent.click(screen.getByTestId('square-2-0'))
+    expect(screen.queryByText(/O Wins/i)).not.toBeInTheDocument()
+    userEvent.click(screen.getByTestId('square-6-5'))
+    expect(screen.queryByText(/O Wins/i)).not.toBeInTheDocument()
+    userEvent.click(screen.getByTestId('square-7-9'))
+    expect(screen.queryByText(/O Wins/i)).not.toBeInTheDocument()
+    userEvent.click(screen.getByTestId('square-7-5'))
+    expect(screen.queryByText(/O Wins/i)).not.toBeInTheDocument()
+    userEvent.click(screen.getByTestId('square-1-1'))
+    expect(screen.queryByText(/O Wins/i)).not.toBeInTheDocument()
+    userEvent.click(screen.getByTestId('square-8-5'))
+
+    expect(screen.getByText(/O Wins/i)).toBeInTheDocument()
+})
+
+test('Three Xs in a column shows a winner', () => {
+    render(<ExtremeNaughtsAndCrosses gridSize={10} players={["X", "O"]} numberOfPiecesInARowRequiredToWin={3} />)
+
+    userEvent.click(screen.getByTestId('square-0-0'))
+
+    userEvent.click(screen.getByTestId('square-8-8'))
+
+    userEvent.click(screen.getByTestId('square-0-1'))
+
+    userEvent.click(screen.getByTestId('square-9-9'))
+
+    userEvent.click(screen.getByTestId('square-0-2'))
+
+    expect(screen.getByText(/X Wins/i)).toBeInTheDocument()
+
+})

@@ -11,7 +11,7 @@ function ExtremeNaughtsAndCrosses(
     } : {
         gridSize: number,
         players : string[],
-        numberOfPiecesInARowRequiredToWin?: number
+        numberOfPiecesInARowRequiredToWin: number
     }) {
     const initialBoardState : BoardState = new Array(gridSize)
     initialBoardState.fill(new Array(gridSize))
@@ -20,7 +20,7 @@ function ExtremeNaughtsAndCrosses(
     const [boardState, setBoardState] = useState(initialBoardState)
     const [whosTurnIsIt, setWhosTurnItIs] = useState("X")
 
-    const winner = calculateWinner(boardState)
+    const winner = calculateWinner(boardState, numberOfPiecesInARowRequiredToWin)
 
 
     return (
@@ -52,33 +52,35 @@ function ExtremeNaughtsAndCrosses(
 }
 
 
-function calculateWinner(boardState : BoardState) {
+function calculateWinner(boardState : BoardState, numberOfPiecesInARowRequiredToWin : number) {
 
-    //console.log(boardState[3][3])
     let winner
 
-    boardState.forEach(row => {
-        if(threeInARowPresentInArray(row))
-            winner = "X"
-    })
-
-    return winner
-}
-
-function threeInARowPresentInArray(array : unknown[]) {
-
-    for(let i = 0; i < array.length - 3; i++)
+    for(let row of boardState)
     {
-        if(!array[i]) continue
-
-        if(array[i] === array[i + 1] && array[i] === array[i + 2])
-        {
-            return true
-        }
+        winner = areSomeNumberOfConsecutiveItemsPresentInArray(numberOfPiecesInARowRequiredToWin, row)
+        if(winner)
+            return winner
     }
-    return false
 }
 
+function areSomeNumberOfConsecutiveItemsPresentInArray(targetNumberOfConsecutiveItems : number, array: unknown[]){
+    let numberOfConsecutiveFound = 1
+
+    let previousItem : unknown = {}
+
+    for (const currentItem of array) {
+        if(currentItem && currentItem === previousItem)
+            numberOfConsecutiveFound++
+        
+        if(numberOfConsecutiveFound === targetNumberOfConsecutiveItems)
+            return currentItem
+
+        previousItem = currentItem
+    }
+
+    return null
+}
 
 // function calculateNextPlayerToMove(boardState : string[][], players: string[]) {
 //     const flattenedBoardState : string[] = []
