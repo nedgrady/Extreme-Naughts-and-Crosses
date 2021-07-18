@@ -1,11 +1,4 @@
 div.container {
     display: flex;
-    flex-direction: row;
-}
-.container * {
-    padding-right: 5px;
-}
-
-.side-bar {
-    font-size: x-large;
+    flex-direction: column;
 }
