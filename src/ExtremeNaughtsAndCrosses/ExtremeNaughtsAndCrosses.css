@@ -5,3 +5,7 @@ div.container {
 .container * {
     padding-right: 5px;
 }
+
+.side-bar {
+    font-size: x-large;
+}

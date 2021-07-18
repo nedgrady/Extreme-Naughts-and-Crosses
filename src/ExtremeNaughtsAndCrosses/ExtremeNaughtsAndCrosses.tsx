@@ -26,7 +26,7 @@ function ExtremeNaughtsAndCrosses(
 
     return (
         <div className="container">
-            <div>
+            <div className="side-bar">
                 <p>{whosTurnIsIt} To Move</p>
                 <p>{numberOfPiecesInARowRequiredToWin} in a row to win</p>
                 {winner && <p>{winner} Wins</p>}
