@@ -6,22 +6,29 @@ import React from 'react'
 test('Starts With The Correct Number of Empty Squares', () => {
     render(<ExtremeNaughtsAndCrosses gridSize={10} players={["X", "O"]} numberOfPiecesInARowRequiredToWin={3}/>)
 
-    expect(screen.getAllByRole('cell', { name: "?"})).toHaveLength(100)
+    expect(screen.getAllByRole('cell', { name: ""})).toHaveLength(100)
 })
 
-test('Displays The Correct Initial Player To Move', () => {
-    render(<ExtremeNaughtsAndCrosses gridSize={10} players={["X", "O"]}  numberOfPiecesInARowRequiredToWin={3}/>)
 
-    expect(screen.getByText('X To Move')).toBeInTheDocument()
+const playersTestCases = [[
+    ["❌", "⭕"],
+    ["X", "O"],
+    ["O", "X"]
+]]
+
+test.each(playersTestCases)('Displays The Correct Initial Player To Move', (players) => {
+    render(<ExtremeNaughtsAndCrosses gridSize={10} players={players}  numberOfPiecesInARowRequiredToWin={3}/>)
+
+    expect(screen.getByText(`${players[0]} To Move`)).toBeInTheDocument()
 })
 
-test('Making a Move Displays The Next Player To Move', () => {
-    render(<ExtremeNaughtsAndCrosses gridSize={10} players={["X", "O"]}  numberOfPiecesInARowRequiredToWin={3}/>)
+test.each(playersTestCases)('Making a Move Displays The Next Player To Move', (players) => {
+    render(<ExtremeNaughtsAndCrosses gridSize={10} players={players}  numberOfPiecesInARowRequiredToWin={3}/>)
 
     const someSquareInWhichToMakeAMove = screen.getByTestId('square-0-0')
     userEvent.click(someSquareInWhichToMakeAMove)
 
-    expect(screen.getByText('O To Move')).toBeInTheDocument()
+    expect(screen.getByText(`${players[1]} To Move`)).toBeInTheDocument()
 })
 
 test('Displays A Piece In The Correct Square After A Move', () => {
@@ -72,7 +79,7 @@ test('All Squares Start Empty', () => {
     const allSquares = screen.getAllByTestId(/square-\d*-\d*/)
 
     allSquares.forEach(square => {
-        expect(square).toHaveTextContent("?")
+        expect(square).toBeEmptyDOMElement()
     })
 })
 
@@ -96,7 +103,7 @@ test('Squares Other Than Those Clicked Stay Empty', async () => {
     squaresThatShouldBeEmpty = squaresThatShouldBeEmpty.filter(squaresThatWereNotClicked)
 
     squaresThatShouldBeEmpty.forEach((square) => {
-        expect(square).toHaveTextContent("?")
+        expect(square).toBeEmptyDOMElement()
     })
 })
 

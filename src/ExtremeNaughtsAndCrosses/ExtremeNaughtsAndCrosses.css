@@ -1,0 +1,7 @@
+div.container {
+    display: flex;
+    flex-direction: row;
+}
+.container * {
+    padding-right: 5px;
+}

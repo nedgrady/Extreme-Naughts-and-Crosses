@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import Board from "./Board"
-
+import './ExtremeNaughtsAndCrosses.css'
 type BoardState = (string | null) [][];
 
 function ExtremeNaughtsAndCrosses(
@@ -18,18 +18,21 @@ function ExtremeNaughtsAndCrosses(
     initialBoardState.forEach(row => row.fill(null))
 
     const [boardState, setBoardState] = useState(initialBoardState)
-    const [whosTurnIsIt, setWhosTurnItIs] = useState("X")
 
     const winner = calculateWinner(boardState, numberOfPiecesInARowRequiredToWin)
+    const numberOfMovesMade = calculateNumberOfMovesMade(boardState)
+    const whosTurnIsIt = players[numberOfMovesMade % players.length]
 
 
     return (
-        <>
-            <p>{whosTurnIsIt} To Move</p>
-            <p>{numberOfPiecesInARowRequiredToWin} in a row to win</p>
+        <div className="container">
+            <div>
+                <p>{whosTurnIsIt} To Move</p>
+                <p>{numberOfPiecesInARowRequiredToWin} in a row to win</p>
+                {winner && <p>{winner} Wins</p>}
+            </div>
             <Board boardState={boardState} onPiecePlaced={handlePiecePlaced}/>
-            {winner && <p>{winner} Wins</p>}
-        </>)
+        </div>)
 
     function handlePiecePlaced(x : number, y: number) {
 
@@ -45,9 +48,6 @@ function ExtremeNaughtsAndCrosses(
         boardStateCopy[x][y] = whosTurnIsIt
 
         setBoardState(boardStateCopy)
-
-        if(whosTurnIsIt == "X") setWhosTurnItIs("O")
-        if(whosTurnIsIt == "O") setWhosTurnItIs("X")
     }
 }
 
@@ -73,15 +73,19 @@ function calculateWinner(boardState : BoardState, numberOfPiecesInARowRequiredTo
 
     const diagonals : BoardState = []
     const leftDiagonalsStartIndex = boardState.length - 1
+    const rightToLeftDiagonalsStartingIndexRightOfPrincipalDiagonal = leftDiagonalsStartIndex * 2
+    const rightToLeftDiagonalsStartingIndexLeftOfPrincipalDiagonal = leftDiagonalsStartIndex * 3
 
     boardState.forEach(_ => {
-        diagonals.push([], [])
+        diagonals.push([], [], [], [])
     })
 
     for(let currentDiagonal = 0; currentDiagonal < diagonals.length; currentDiagonal++) {
         for(let pieceIndex = 0; pieceIndex < boardState.length - currentDiagonal; pieceIndex++) {
             diagonals[currentDiagonal].push(boardState[pieceIndex][pieceIndex + currentDiagonal])
             diagonals[currentDiagonal + leftDiagonalsStartIndex].push(boardState[pieceIndex][pieceIndex - currentDiagonal])
+            diagonals[currentDiagonal + rightToLeftDiagonalsStartingIndexRightOfPrincipalDiagonal].push(boardState[boardState.length - 1 - pieceIndex][pieceIndex - currentDiagonal])
+            diagonals[currentDiagonal + rightToLeftDiagonalsStartingIndexLeftOfPrincipalDiagonal].push(boardState[boardState.length - 1 - pieceIndex][pieceIndex + currentDiagonal])
         }
     }
 
@@ -110,18 +114,15 @@ function areSomeNumberOfConsecutiveItemsPresentInArray(targetNumberOfConsecutive
     return null
 }
 
-// function calculateNextPlayerToMove(boardState : string[][], players: string[]) {
-//     const flattenedBoardState : string[] = []
-//     boardState.forEach(row => row.forEach(piece => flattenedBoardState.push(piece)))
+function calculateNumberOfMovesMade(boardState : BoardState) {
+    let numberOfMoves = 0
 
-//     const numberOfX = flattenedBoardState.filter(piece => piece == "X").length
-//     const numberOfO = flattenedBoardState.filter(piece => piece == "O").length
+    boardState.forEach(row => {
+        numberOfMoves += row.filter(pieceOrEmpty => !!pieceOrEmpty).length
+    })
 
-//     if(numberOfO < numberOfX)
-//         return "O"
-//     else
-//         return "X"
-// }
+    return numberOfMoves
+}
 
 
 
