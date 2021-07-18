@@ -62,6 +62,34 @@ function calculateWinner(boardState : BoardState, numberOfPiecesInARowRequiredTo
         if(winner)
             return winner
     }
+
+    let transposedBoardState = boardState[0].map((_, columnIndex) => boardState.map(row => row[columnIndex]))
+    for(let column of transposedBoardState)
+    {
+        winner = areSomeNumberOfConsecutiveItemsPresentInArray(numberOfPiecesInARowRequiredToWin, column)
+        if(winner)
+            return winner
+    }
+
+    const diagonals : BoardState = []
+    const leftDiagonalsStartIndex = boardState.length - 1
+
+    boardState.forEach(_ => {
+        diagonals.push([], [])
+    })
+
+    for(let currentDiagonal = 0; currentDiagonal < diagonals.length; currentDiagonal++) {
+        for(let pieceIndex = 0; pieceIndex < boardState.length - currentDiagonal; pieceIndex++) {
+            diagonals[currentDiagonal].push(boardState[pieceIndex][pieceIndex + currentDiagonal])
+            diagonals[currentDiagonal + leftDiagonalsStartIndex].push(boardState[pieceIndex][pieceIndex - currentDiagonal])
+        }
+    }
+
+    for(let diagonal of diagonals) {
+        winner = areSomeNumberOfConsecutiveItemsPresentInArray(numberOfPiecesInARowRequiredToWin, diagonal)
+        if(winner)
+            return winner
+    }
 }
 
 function areSomeNumberOfConsecutiveItemsPresentInArray(targetNumberOfConsecutiveItems : number, array: unknown[]){
