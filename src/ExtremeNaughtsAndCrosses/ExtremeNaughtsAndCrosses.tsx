@@ -32,7 +32,9 @@ function ExtremeNaughtsAndCrosses(
         numberOfPiecesInARowRequiredToWin: number
     }) {
 
+    const [inputGridSize, setInputGridSize] = useState(gridSize)
     const [boardState, setBoardState] = useState(createInitialEmptyBoardState(gridSize))
+
 
     const winner = calculateWinner(boardState, numberOfPiecesInARowRequiredToWin)
     const numberOfMovesMade = calculateNumberOfMovesMade(boardState)
@@ -46,8 +48,10 @@ function ExtremeNaughtsAndCrosses(
         <FlexyGameContainer ref={gameContainerRef}>
             <div style={{padding: "20px"}}>
                 <h5>Extreme Naughts and Crosses</h5>
+                <label htmlFor="grid-size">Grid Size</label> <input type="number" id="grid-size" onChange={(event) => setInputGridSize(Number.parseInt(event.target.value))}/>
                 <p>{whosTurnIsIt} To Move</p>
                 <p>{numberOfPiecesInARowRequiredToWin} in a row to win</p>
+                <button onClick={() => {setBoardState(createInitialEmptyBoardState(inputGridSize))}}>Reset</button>
                 {winner && <h4><strong>{winner} Wins!</strong></h4>}
             </div>
             <Board
