@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 import useElementDimensions from "useElementDimensions"
 import Board from "./Board"
-import './ExtremeNaughtsAndCrosses.css'
 import styled from 'styled-components'
 
 type BoardState = (string | null)[][];
