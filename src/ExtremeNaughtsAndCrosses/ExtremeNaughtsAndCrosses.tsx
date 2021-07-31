@@ -7,7 +7,7 @@ export default function ExtremeNaughtsAndCrosses() {
     return (
     <>
         <ExtremeNaughtsAndCrossesControls onOptionsSubmitted={({newGridSize}) => {setInputGridSize(newGridSize)}}/>
-        <ExtremeNaughtsAndCrossesGame key={inputGridSize} gridSize={inputGridSize} players={["X", "O"]} numberOfPiecesInARowRequiredToWin={3} />
+        <ExtremeNaughtsAndCrossesGame key={inputGridSize} gridSize={inputGridSize} players={["✖", "🔥", "📘"]} numberOfPiecesInARowRequiredToWin={3} />
     </>)
 }
 
