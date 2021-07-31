@@ -9,7 +9,7 @@ test('displays the specified board state', () => {
         ["X", "*", "X"]
     ]
 
-    render(<Board boardState={boardState} onPiecePlaced={jest.fn()} limitingDimension={1000}/>)
+    render(<Board boardState={boardState} onPiecePlaced={jest.fn()} limitingDimensionInPixels={1000}/>)
 
     expect(screen.getAllByText("X")).toHaveLength(6)
     expect(screen.getAllByText("O")).toHaveLength(2)
@@ -23,7 +23,7 @@ test('sets the test ids of each square', () => {
         ["02", "12", "22"]
     ]
 
-    render(<Board boardState={boardState} onPiecePlaced={jest.fn()} limitingDimension={1000}/>)
+    render(<Board boardState={boardState} onPiecePlaced={jest.fn()} limitingDimensionInPixels={1000}/>)
 
     expect(screen.getByTestId("square-0-0")).toHaveTextContent("00")
     expect(screen.getByTestId("square-0-1")).toHaveTextContent("01")

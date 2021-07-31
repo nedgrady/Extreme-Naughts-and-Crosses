@@ -1,36 +1,55 @@
 import React from 'react'
-import './Board.css'
 import styled from 'styled-components'
-import useElementDimensions from 'useElementDimensions'
+
+const Table = styled.table`
+    border-collapse: collapse;
+`
+const Square = styled.td`
+    vertical-align: middle;
+    text-align: center;
+
+    border-color: black;
+    padding: 0;
+    margin: 0;
+
+    border-width: 1px 1px 1px 1px;
+    border-style: solid;
+`
 interface BoardProps {
     boardState: (string | null)[][],
     onPiecePlaced: (x: number, y: number) => void,
-    limitingDimension: number
+    limitingDimensionInPixels: number
 }
 
-export default function Board({ boardState, onPiecePlaced, limitingDimension }: BoardProps) {
+export default function Board({ boardState, onPiecePlaced, limitingDimensionInPixels }: BoardProps) {
 
-    const numberOfSquaresInPercent = `${100 / boardState.length}%`
+    const sizeOfEachSquareInPercent = `${100 / boardState.length}%`
+    const sizeOfEachSquareInPixels = `${(limitingDimensionInPixels / boardState.length / 2) - 1}px`
     const css: React.CSSProperties = {
-        width: numberOfSquaresInPercent,
-        height: numberOfSquaresInPercent
+        width: sizeOfEachSquareInPercent,
+        height: sizeOfEachSquareInPercent,
+        fontSize: sizeOfEachSquareInPixels
     }
 
     return (
-        <table cellSpacing={0} cellPadding={0} style={{ width: `${limitingDimension}px`, height: `${limitingDimension}px` }}>
+        <Table cellSpacing={0} cellPadding={0} style={{ width: `${limitingDimensionInPixels}px`, height: `${limitingDimensionInPixels}px` }}>
             <tbody>
                 {
                     boardState.map((row, rowIndex) =>
-                        <tr key={rowIndex} className="board-row">
+                        <tr key={rowIndex}>
                             {
                                 row.map((piece, columnIndex) =>
-                                    <td key={`${columnIndex}-${rowIndex}`} data-testid={`square-${columnIndex}-${rowIndex}`} onClick={(() => onPiecePlaced(rowIndex, columnIndex))} className="board-square" style={css}>{piece || ""}</td>
+                                    <Square key={`${columnIndex}-${rowIndex}`}
+                                            data-testid={`square-${columnIndex}-${rowIndex}`}
+                                            onClick={(() => onPiecePlaced(rowIndex, columnIndex))}
+                                            style={css}>{piece || ""}
+                                    </Square>
                                 )
                             }
                         </tr>
                     )
                 }
             </tbody>
-        </table>
+        </Table>
     )
 }

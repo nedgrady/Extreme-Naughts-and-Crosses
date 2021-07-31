@@ -24,7 +24,7 @@ function ExtremeNaughtsAndCrosses(
 
     const [{width, height}, ref] = useElementDimensions()
 
-    const limitingDimension = Math.min(width, height)
+    const limitingDimensionInPixels = Math.min(width, height)
 
     return (
         <div className="container" ref={ref}>
@@ -35,7 +35,7 @@ function ExtremeNaughtsAndCrosses(
                 {winner && <p>{winner} Wins</p>}
             </div>
             <div>
-                <Board boardState={boardState} onPiecePlaced={handlePiecePlaced} limitingDimension={limitingDimension}/>
+                <Board boardState={boardState} onPiecePlaced={handlePiecePlaced} limitingDimensionInPixels={limitingDimensionInPixels}/>
             </div>
         </div>)
 
@@ -135,7 +135,5 @@ function createInitialEmptyBoardState(gridSize : number) {
     initialBoardState.forEach(row => row.fill(null))
     return initialBoardState
 }
-
-
 
 export default ExtremeNaughtsAndCrosses
