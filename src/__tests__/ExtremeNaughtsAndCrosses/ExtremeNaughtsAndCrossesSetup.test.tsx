@@ -58,5 +58,20 @@ test('Entering a number of consective pieces to win changes then clicking refres
     userEvent.click(resetButton)
 
     expect(screen.getByText(/2 in a row to win/i, { exact: false })).toBeInTheDocument()
+})
 
+test('Submitting number of consecuitive pieces to win clears the board', () => {
+    render(<ExtremeNaughtsAndCrosses />)
+
+    const someSquareInWhichToMakeAMove = screen.getByTestId('square-0-0')
+    userEvent.click(someSquareInWhichToMakeAMove)
+
+    const targetNumberInput = screen.getByRole('spinbutton', { name: "Winning Number in a Row"})
+    userEvent.clear(targetNumberInput)
+    userEvent.type(targetNumberInput, "2")
+
+    const resetButton = screen.getByRole('button', { name: "Reset"})
+    userEvent.click(resetButton)
+
+    expect(screen.getAllByRole('cell', { name: ""})).toHaveLength(100)
 })
