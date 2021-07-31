@@ -32,7 +32,7 @@ export default function Board({ boardState, onPiecePlaced, limitingDimensionInPi
     }
 
     return (
-        <Table cellSpacing={0} cellPadding={0} style={{ width: `${limitingDimensionInPixels}px`, height: `${limitingDimensionInPixels}px` }}>
+        <Table style={{ width: `${limitingDimensionInPixels}px`, height: `${limitingDimensionInPixels}px` }}>
             <tbody>
                 {
                     boardState.map((row, rowIndex) =>
