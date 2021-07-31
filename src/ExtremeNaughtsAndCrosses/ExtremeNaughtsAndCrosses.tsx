@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import useElementDimentions from "useElementDimensions"
+import useElementDimensions from "useElementDimensions"
 import Board from "./Board"
 import './ExtremeNaughtsAndCrosses.css'
 
@@ -15,19 +15,16 @@ function ExtremeNaughtsAndCrosses(
         players : string[],
         numberOfPiecesInARowRequiredToWin: number
     }) {
-    const initialBoardState : BoardState = new Array(gridSize)
-    initialBoardState.fill(new Array(gridSize))
-    initialBoardState.forEach(row => row.fill(null))
 
-    const [boardState, setBoardState] = useState(initialBoardState)
+    const [boardState, setBoardState] = useState(createInitialEmptyBoardState(gridSize))
 
     const winner = calculateWinner(boardState, numberOfPiecesInARowRequiredToWin)
     const numberOfMovesMade = calculateNumberOfMovesMade(boardState)
     const whosTurnIsIt = players[numberOfMovesMade % players.length]
 
-    const [x, ref] = useElementDimentions()
+    const [{width, height}, ref] = useElementDimensions()
 
-    const limitingDimension = Math.min(x.width, x.height)
+    const limitingDimension = Math.min(width, height)
 
     return (
         <div className="container" ref={ref}>
@@ -130,6 +127,13 @@ function calculateNumberOfMovesMade(boardState : BoardState) {
     })
 
     return numberOfMoves
+}
+
+function createInitialEmptyBoardState(gridSize : number) {
+    const initialBoardState : BoardState = new Array(gridSize)
+    initialBoardState.fill(new Array(gridSize))
+    initialBoardState.forEach(row => row.fill(null))
+    return initialBoardState
 }
 
 

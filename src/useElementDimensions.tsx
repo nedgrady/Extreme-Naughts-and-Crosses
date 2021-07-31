@@ -75,7 +75,7 @@ const defaultValue: any = Object.assign(domRect, {
     target: (null as unknown) as Element,
 })
 
-const useDimensions = (): [
+const useElementDimensions = (): [
     ElementDimensions,
     (element?: Element | null) => void
 ] => {
@@ -105,4 +105,4 @@ const useDimensions = (): [
     return [dimensions, setRef]
 }
 
-export default useDimensions
+export default useElementDimensions
