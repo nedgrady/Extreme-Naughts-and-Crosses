@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import ExtremeNaughtsAndCrosses from 'ExtremeNaughtsAndCrosses/ExtremeNaughtsAndCrosses'
+import ExtremeNaughtsAndCrossesGame from 'ExtremeNaughtsAndCrosses/ExtremeNaughtsAndCrossesGame'
 import React from 'react'
 
 test('Starts With The Correct Number of Empty Squares', () => {
-    render(<ExtremeNaughtsAndCrosses gridSize={10} players={["X", "O"]} numberOfPiecesInARowRequiredToWin={3}/>)
+    render(<ExtremeNaughtsAndCrossesGame gridSize={10} players={["X", "O"]} numberOfPiecesInARowRequiredToWin={3}/>)
 
     expect(screen.getAllByRole('cell', { name: ""})).toHaveLength(100)
 })
@@ -17,13 +17,13 @@ const playersTestCases = [[
 ]]
 
 test.each(playersTestCases)('Displays The Correct Initial Player To Move', (players) => {
-    render(<ExtremeNaughtsAndCrosses gridSize={10} players={players}  numberOfPiecesInARowRequiredToWin={3}/>)
+    render(<ExtremeNaughtsAndCrossesGame gridSize={10} players={players}  numberOfPiecesInARowRequiredToWin={3}/>)
 
     expect(screen.getByText(`${players[0]} To Move`)).toBeInTheDocument()
 })
 
 test.each(playersTestCases)('Making a Move Displays The Next Player To Move', (players) => {
-    render(<ExtremeNaughtsAndCrosses gridSize={10} players={players}  numberOfPiecesInARowRequiredToWin={3}/>)
+    render(<ExtremeNaughtsAndCrossesGame gridSize={10} players={players}  numberOfPiecesInARowRequiredToWin={3}/>)
 
     const someSquareInWhichToMakeAMove = screen.getByTestId('square-0-0')
     userEvent.click(someSquareInWhichToMakeAMove)
@@ -32,7 +32,7 @@ test.each(playersTestCases)('Making a Move Displays The Next Player To Move', (p
 })
 
 test('Displays A Piece In The Correct Square After A Move', () => {
-    render(<ExtremeNaughtsAndCrosses gridSize={10} players={["X", "O"]}  numberOfPiecesInARowRequiredToWin={3}/>)
+    render(<ExtremeNaughtsAndCrossesGame gridSize={10} players={["X", "O"]}  numberOfPiecesInARowRequiredToWin={3}/>)
 
     const someSquareInWhichToMakeAMove = screen.getByTestId('square-0-0')
     userEvent.click(someSquareInWhichToMakeAMove)
@@ -41,7 +41,7 @@ test('Displays A Piece In The Correct Square After A Move', () => {
 })
 
 test('Displays A Piece In The Correct Square After Two Moves', () => {
-    render(<ExtremeNaughtsAndCrosses gridSize={10} players={["X", "O"]}  numberOfPiecesInARowRequiredToWin={3}/>)
+    render(<ExtremeNaughtsAndCrossesGame gridSize={10} players={["X", "O"]}  numberOfPiecesInARowRequiredToWin={3}/>)
 
     const someSquareInWhichToMakeAMove = screen.getByTestId('square-0-0')
     userEvent.click(someSquareInWhichToMakeAMove)
@@ -55,7 +55,7 @@ test('Displays A Piece In The Correct Square After Two Moves', () => {
 })
 
 test('Displays A Piece In The Correct Square After Three Moves', () => {
-    render(<ExtremeNaughtsAndCrosses gridSize={10} players={["X", "O"]}  numberOfPiecesInARowRequiredToWin={3}/>)
+    render(<ExtremeNaughtsAndCrossesGame gridSize={10} players={["X", "O"]}  numberOfPiecesInARowRequiredToWin={3}/>)
 
     const someSquareInWhichToMakeAMove = screen.getByTestId('square-0-0')
     userEvent.click(someSquareInWhichToMakeAMove)
@@ -74,7 +74,7 @@ test('Displays A Piece In The Correct Square After Three Moves', () => {
 })
 
 test('All Squares Start Empty', () => {
-    render(<ExtremeNaughtsAndCrosses gridSize={10} players={["X", "O"]}  numberOfPiecesInARowRequiredToWin={3}/>)
+    render(<ExtremeNaughtsAndCrossesGame gridSize={10} players={["X", "O"]}  numberOfPiecesInARowRequiredToWin={3}/>)
 
     const allSquares = screen.getAllByTestId(/square-\d*-\d*/)
 
@@ -84,7 +84,7 @@ test('All Squares Start Empty', () => {
 })
 
 test('Squares Other Than Those Clicked Stay Empty', async () => {
-    render(<ExtremeNaughtsAndCrosses gridSize={10} players={["X", "O"]}  numberOfPiecesInARowRequiredToWin={3}/>)
+    render(<ExtremeNaughtsAndCrossesGame gridSize={10} players={["X", "O"]}  numberOfPiecesInARowRequiredToWin={3}/>)
 
     const allSquares = screen.getAllByTestId(/square-\d*-\d*/)
 
@@ -108,7 +108,7 @@ test('Squares Other Than Those Clicked Stay Empty', async () => {
 })
 
 test('Making Two Move Displays The Next Player To Move After Each Move', () => {
-    render(<ExtremeNaughtsAndCrosses gridSize={10} players={["X", "O"]}  numberOfPiecesInARowRequiredToWin={3}/>)
+    render(<ExtremeNaughtsAndCrossesGame gridSize={10} players={["X", "O"]}  numberOfPiecesInARowRequiredToWin={3}/>)
 
     const someSquareInWhichToMakeAMove = screen.getByTestId('square-0-0')
     userEvent.click(someSquareInWhichToMakeAMove)
@@ -122,7 +122,7 @@ test('Making Two Move Displays The Next Player To Move After Each Move', () => {
 })
 
 test("Making a move on a taken square doesn't overwrite the existing piece", () => {
-    render(<ExtremeNaughtsAndCrosses gridSize={10} players={["X", "O"]}  numberOfPiecesInARowRequiredToWin={3}/>)
+    render(<ExtremeNaughtsAndCrossesGame gridSize={10} players={["X", "O"]}  numberOfPiecesInARowRequiredToWin={3}/>)
 
     const someSquareInWhichToMakeAMove = screen.getByTestId('square-8-9')
     userEvent.click(someSquareInWhichToMakeAMove)
@@ -138,6 +138,6 @@ test("Making a move on a taken square doesn't overwrite the existing piece", () 
 test.each(
     [3, 5, 6]
 )("Correctly displays %p is the number of pieces in a row required to win", (numberOfPiecesInARowRequiredToWin) => {
-    render(<ExtremeNaughtsAndCrosses gridSize={10} players={["X", "O"]} numberOfPiecesInARowRequiredToWin={numberOfPiecesInARowRequiredToWin}/>)
+    render(<ExtremeNaughtsAndCrossesGame gridSize={10} players={["X", "O"]} numberOfPiecesInARowRequiredToWin={numberOfPiecesInARowRequiredToWin}/>)
     expect(screen.getByText(new RegExp(`${numberOfPiecesInARowRequiredToWin} in a row to win`, 'i'), { exact: false,  }))
 })

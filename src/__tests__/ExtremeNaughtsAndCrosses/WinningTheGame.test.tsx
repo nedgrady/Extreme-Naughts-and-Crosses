@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import ExtremeNaughtsAndCrosses from 'ExtremeNaughtsAndCrosses/ExtremeNaughtsAndCrosses'
+import ExtremeNaughtsAndCrossesGame from 'ExtremeNaughtsAndCrosses/ExtremeNaughtsAndCrossesGame'
 import React from 'react'
 
 test('With three Xs in a row shows a winner', () => {
-    render(<ExtremeNaughtsAndCrosses gridSize={10} players={["X", "O"]} numberOfPiecesInARowRequiredToWin={3} />)
+    render(<ExtremeNaughtsAndCrossesGame gridSize={10} players={["X", "O"]} numberOfPiecesInARowRequiredToWin={3} />)
 
     userEvent.click(screen.getByTestId('square-0-0'))
     expect(screen.queryByText(/X Wins/i)).not.toBeInTheDocument()
@@ -20,7 +20,7 @@ test('With three Xs in a row shows a winner', () => {
 })
 
 test('With three Xs in different row shows a winner', () => {
-    render(<ExtremeNaughtsAndCrosses gridSize={10} players={["X", "O"]} numberOfPiecesInARowRequiredToWin={3} />)
+    render(<ExtremeNaughtsAndCrossesGame gridSize={10} players={["X", "O"]} numberOfPiecesInARowRequiredToWin={3} />)
 
     userEvent.click(screen.getByTestId('square-5-5'))
     expect(screen.queryByText(/X Wins/i)).not.toBeInTheDocument()
@@ -41,7 +41,7 @@ test('With three Xs in different row shows a winner', () => {
 
 
 test('With three Os in a row shows a winner', () => {
-    render(<ExtremeNaughtsAndCrosses gridSize={10} players={["X", "O"]} numberOfPiecesInARowRequiredToWin={3} />)
+    render(<ExtremeNaughtsAndCrossesGame gridSize={10} players={["X", "O"]} numberOfPiecesInARowRequiredToWin={3} />)
 
     userEvent.click(screen.getByTestId('square-0-0'))
     expect(screen.queryByText(/O Wins/i)).not.toBeInTheDocument()
@@ -60,7 +60,7 @@ test('With three Os in a row shows a winner', () => {
 
 
 test('With four Os in a row shows a winner', () => {
-    render(<ExtremeNaughtsAndCrosses gridSize={10} players={["X", "O"]} numberOfPiecesInARowRequiredToWin={4} />)
+    render(<ExtremeNaughtsAndCrossesGame gridSize={10} players={["X", "O"]} numberOfPiecesInARowRequiredToWin={4} />)
 
     userEvent.click(screen.getByTestId('square-0-0'))
     expect(screen.queryByText(/O Wins/i)).not.toBeInTheDocument()
@@ -82,7 +82,7 @@ test('With four Os in a row shows a winner', () => {
 })
 
 test('With three Xs in a column shows a winner', () => {
-    render(<ExtremeNaughtsAndCrosses gridSize={10} players={["X", "O"]} numberOfPiecesInARowRequiredToWin={3} />)
+    render(<ExtremeNaughtsAndCrossesGame gridSize={10} players={["X", "O"]} numberOfPiecesInARowRequiredToWin={3} />)
 
     userEvent.click(screen.getByTestId('square-0-0'))
 
@@ -99,7 +99,7 @@ test('With three Xs in a column shows a winner', () => {
 })
 
 test('With three Xs diagonally left-to-right, on the principal diagonal shows a winner', () => {
-    render(<ExtremeNaughtsAndCrosses gridSize={10} players={["X", "O"]} numberOfPiecesInARowRequiredToWin={3} />)
+    render(<ExtremeNaughtsAndCrossesGame gridSize={10} players={["X", "O"]} numberOfPiecesInARowRequiredToWin={3} />)
 
     userEvent.click(screen.getByTestId('square-0-0'))
     userEvent.click(screen.getByTestId('square-3-2'))
@@ -111,7 +111,7 @@ test('With three Xs diagonally left-to-right, on the principal diagonal shows a 
 })
 
 test('With four Xs diagonally left-to-right, to the right of the principal diagonal shows a winner', () => {
-    render(<ExtremeNaughtsAndCrosses gridSize={10} players={["X", "O"]} numberOfPiecesInARowRequiredToWin={4} />)
+    render(<ExtremeNaughtsAndCrossesGame gridSize={10} players={["X", "O"]} numberOfPiecesInARowRequiredToWin={4} />)
 
     userEvent.click(screen.getByTestId('square-2-2'))
     userEvent.click(screen.getByTestId('square-3-2'))
@@ -126,7 +126,7 @@ test('With four Xs diagonally left-to-right, to the right of the principal diago
 
 
 test('With three Xs diagonally left-to-right, to the left of the principal diagonal shows a winner ', () => {
-    render(<ExtremeNaughtsAndCrosses gridSize={10} players={["X", "O"]} numberOfPiecesInARowRequiredToWin={3} />)
+    render(<ExtremeNaughtsAndCrossesGame gridSize={10} players={["X", "O"]} numberOfPiecesInARowRequiredToWin={3} />)
 
     userEvent.click(screen.getByTestId('square-0-1'))
     userEvent.click(screen.getByTestId('square-8-6'))
@@ -138,7 +138,7 @@ test('With three Xs diagonally left-to-right, to the left of the principal diago
 })
 
 test('With three Xs diagonally right-to-left, to the left of the principal diagonal shows a winner ', () => {
-    render(<ExtremeNaughtsAndCrosses gridSize={10} players={["X", "O"]} numberOfPiecesInARowRequiredToWin={3} />)
+    render(<ExtremeNaughtsAndCrossesGame gridSize={10} players={["X", "O"]} numberOfPiecesInARowRequiredToWin={3} />)
 
     userEvent.click(screen.getByTestId('square-9-0'))
     userEvent.click(screen.getByTestId('square-8-6'))
@@ -150,7 +150,7 @@ test('With three Xs diagonally right-to-left, to the left of the principal diago
 })
 
 test('With three Xs diagonally right-to-left on the principal diagonal shows a winner ', () => {
-    render(<ExtremeNaughtsAndCrosses gridSize={10} players={["X", "O"]} numberOfPiecesInARowRequiredToWin={3} />)
+    render(<ExtremeNaughtsAndCrossesGame gridSize={10} players={["X", "O"]} numberOfPiecesInARowRequiredToWin={3} />)
 
     userEvent.click(screen.getByTestId('square-7-2'))
     expect(screen.queryByText(/X Wins/i)).not.toBeInTheDocument()
@@ -163,7 +163,7 @@ test('With three Xs diagonally right-to-left on the principal diagonal shows a w
 })
 
 test('With three Xs diagonally right-to-left, to the left of the principal diagonal shows a winner ', () => {
-    render(<ExtremeNaughtsAndCrosses gridSize={10} players={["X", "O"]} numberOfPiecesInARowRequiredToWin={3} />)
+    render(<ExtremeNaughtsAndCrossesGame gridSize={10} players={["X", "O"]} numberOfPiecesInARowRequiredToWin={3} />)
 
     userEvent.click(screen.getByTestId('square-6-3'))
     userEvent.click(screen.getByTestId('square-8-6'))
@@ -175,7 +175,7 @@ test('With three Xs diagonally right-to-left, to the left of the principal diago
 })
 
 test('With three Xs diagonally right-to-left, to the right of the principal diagonal shows a winner ', () => {
-    render(<ExtremeNaughtsAndCrosses gridSize={10} players={["X", "O"]} numberOfPiecesInARowRequiredToWin={3} />)
+    render(<ExtremeNaughtsAndCrossesGame gridSize={10} players={["X", "O"]} numberOfPiecesInARowRequiredToWin={3} />)
 
     userEvent.click(screen.getByTestId('square-9-2'))
     userEvent.click(screen.getByTestId('square-8-6'))
