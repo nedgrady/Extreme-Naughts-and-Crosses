@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/Extreme-Naughts-and-Crosses/static/css/main.dc2f799d.chunk.css",
-    "main.js": "/Extreme-Naughts-and-Crosses/static/js/main.c3a09e3b.chunk.js",
-    "main.js.map": "/Extreme-Naughts-and-Crosses/static/js/main.c3a09e3b.chunk.js.map",
+    "main.js": "/Extreme-Naughts-and-Crosses/static/js/main.55754539.chunk.js",
+    "main.js.map": "/Extreme-Naughts-and-Crosses/static/js/main.55754539.chunk.js.map",
     "runtime-main.js": "/Extreme-Naughts-and-Crosses/static/js/runtime-main.5b8f1ab4.js",
     "runtime-main.js.map": "/Extreme-Naughts-and-Crosses/static/js/runtime-main.5b8f1ab4.js.map",
     "static/js/2.3c0d3cbe.chunk.js": "/Extreme-Naughts-and-Crosses/static/js/2.3c0d3cbe.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.5b8f1ab4.js",
     "static/js/2.3c0d3cbe.chunk.js",
     "static/css/main.dc2f799d.chunk.css",
-    "static/js/main.c3a09e3b.chunk.js"
+    "static/js/main.55754539.chunk.js"
   ]
 }
