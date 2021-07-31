@@ -3,14 +3,15 @@ import ExtremeNaughtsAndCrossesGame from './ExtremeNaughtsAndCrossesGame'
 import ExtremeNaughtsAndCrossesControls from './ExtremeNaughtsAndCrossesControls'
 export default function ExtremeNaughtsAndCrosses() {
     const [inputGridSize, setInputGridSize] = useState<number>(10)
+    const [inputWinningNumberInARow, setInputWinningNumberInARow] = useState<number>(10)
 
     return (
     <>
-        <ExtremeNaughtsAndCrossesControls onOptionsSubmitted={({newGridSize}) => {setInputGridSize(newGridSize)}}/>
-        <ExtremeNaughtsAndCrossesGame key={inputGridSize} gridSize={inputGridSize} players={["✖", "🔥", "📘"]} numberOfPiecesInARowRequiredToWin={3} />
+        <ExtremeNaughtsAndCrossesControls onOptionsSubmitted={({newGridSize, newWinningNumberInARow}) => {setInputGridSize(newGridSize); setInputWinningNumberInARow(newWinningNumberInARow)}}/>
+        <ExtremeNaughtsAndCrossesGame
+            key={inputGridSize}
+            gridSize={inputGridSize}
+            players={["⚔", "🔥", "📘"]}
+            numberOfPiecesInARowRequiredToWin={inputWinningNumberInARow} />
     </>)
 }
-
-
-/**        <label htmlFor="grid-size">Grid Size</label> <input type="number" id="grid-size" value={inputGridSize} onChange={}/>
-        <button onClick={() => {setBoardState(createInitialEmptyBoardState(inputGridSize))}}>Reset</button> */

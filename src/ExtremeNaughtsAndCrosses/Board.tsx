@@ -22,8 +22,6 @@ interface BoardProps {
 }
 
 export default function Board({ boardState, onPiecePlaced, limitingDimensionInPixels }: BoardProps) {
-
-    const sizeOfEachSquareInPercent = `${100 / boardState.length}%`
     const sizeOfSquareInPixels = `${(limitingDimensionInPixels / boardState.length)}px`
     const fontSizeForSquare = `${(limitingDimensionInPixels / boardState.length / 2) - 1}px`
     const css: React.CSSProperties = {
