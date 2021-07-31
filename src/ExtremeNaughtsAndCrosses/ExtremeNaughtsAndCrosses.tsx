@@ -16,6 +16,7 @@ const FlexyGameContainer = styled.div`
         flex-direction: row;
     }
 
+    text-align: center;
     height: 100%;
     max-height: 100%;
 `
@@ -43,11 +44,11 @@ function ExtremeNaughtsAndCrosses(
 
     return (
         <FlexyGameContainer ref={gameContainerRef}>
-            <div>
-                <h1>Extreme Naughts and Crosses</h1>
+            <div style={{padding: "20px"}}>
+                <h5>Extreme Naughts and Crosses</h5>
                 <p>{whosTurnIsIt} To Move</p>
                 <p>{numberOfPiecesInARowRequiredToWin} in a row to win</p>
-                {winner && <p>{winner} Wins</p>}
+                {winner && <h4><strong>{winner} Wins!</strong></h4>}
             </div>
             <Board
                 boardState={boardState}
@@ -71,7 +72,6 @@ function ExtremeNaughtsAndCrosses(
         setBoardState(boardStateCopy)
     }
 }
-
 
 function calculateWinner(
     boardState: BoardState,
