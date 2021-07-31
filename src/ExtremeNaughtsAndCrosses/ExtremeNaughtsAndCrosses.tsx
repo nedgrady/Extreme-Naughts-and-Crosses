@@ -1,6 +1,8 @@
 import React, { useState } from "react"
+import useElementDimentions from "useElementDimensions"
 import Board from "./Board"
 import './ExtremeNaughtsAndCrosses.css'
+
 type BoardState = (string | null) [][];
 
 function ExtremeNaughtsAndCrosses(
@@ -23,15 +25,21 @@ function ExtremeNaughtsAndCrosses(
     const numberOfMovesMade = calculateNumberOfMovesMade(boardState)
     const whosTurnIsIt = players[numberOfMovesMade % players.length]
 
+    const [x, ref] = useElementDimentions()
+
+    const limitingDimension = Math.min(x.width, x.height)
 
     return (
-        <div className="container">
+        <div className="container" ref={ref}>
             <div className="side-bar">
+                <h1>Extreme Naughts and Crosses</h1>
                 <p>{whosTurnIsIt} To Move</p>
                 <p>{numberOfPiecesInARowRequiredToWin} in a row to win</p>
                 {winner && <p>{winner} Wins</p>}
             </div>
-            <Board boardState={boardState} onPiecePlaced={handlePiecePlaced}/>
+            <div>
+                <Board boardState={boardState} onPiecePlaced={handlePiecePlaced} limitingDimension={limitingDimension}/>
+            </div>
         </div>)
 
     function handlePiecePlaced(x : number, y: number) {

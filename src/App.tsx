@@ -6,7 +6,6 @@ import './App.css'
 function App() {
   return (
     <>
-      <h1>Exteme Naughts and Crosses</h1>
       <ExtremeNaughtsAndCrosses gridSize={12} players={["❌", "♻️", "🔷"]} numberOfPiecesInARowRequiredToWin={3} />
     </>
     )
