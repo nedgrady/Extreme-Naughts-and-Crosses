@@ -119,7 +119,8 @@ function calculateWinner(
 
 function areSomeNumberOfConsecutiveItemsPresentInArray(
     targetNumberOfConsecutiveItems: number,
-    array: unknown[]) {
+    array: unknown[]
+) {
     let numberOfConsecutiveFound = 1
 
     let previousItem: unknown = {}
@@ -127,6 +128,8 @@ function areSomeNumberOfConsecutiveItemsPresentInArray(
     for (const currentItem of array) {
         if (currentItem && currentItem === previousItem)
             numberOfConsecutiveFound++
+        else
+            numberOfConsecutiveFound = 1
 
         if (numberOfConsecutiveFound === targetNumberOfConsecutiveItems)
             return currentItem

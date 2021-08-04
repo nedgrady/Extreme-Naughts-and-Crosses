@@ -185,3 +185,18 @@ test('With three Xs diagonally right-to-left, to the right of the principal diag
 
     expect(screen.getByText(/X Wins/i)).toBeInTheDocument()
 })
+
+
+test('Should only display when three of the SAME piece is detected in a row, rather than two consecutive pairs of different pieces ', () => {
+    render(<ExtremeNaughtsAndCrossesGame gridSize={4} players={["X", "O"]} numberOfPiecesInARowRequiredToWin={3} />)
+
+    userEvent.click(screen.getByTestId('square-0-0'))
+    userEvent.click(screen.getByTestId('square-0-2'))
+
+    userEvent.click(screen.getByTestId('square-0-1'))
+    userEvent.click(screen.getByTestId('square-0-3'))
+
+    // X X O O should not show a winner!
+
+    expect(screen.queryByText(/O Wins/i)).not.toBeInTheDocument()
+})
