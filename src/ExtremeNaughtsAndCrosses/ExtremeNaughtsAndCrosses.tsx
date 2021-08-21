@@ -1,17 +1,20 @@
 import React, { useState } from "react"
 import ExtremeNaughtsAndCrossesGame from './ExtremeNaughtsAndCrossesGame'
 import ExtremeNaughtsAndCrossesControls from './ExtremeNaughtsAndCrossesControls'
+import {gridSizeAtom, winningNumberInARowAtom} from './ExtremeNaughtsAndCrossesControls'
+import { useRecoilValue } from "recoil"
+
 export default function ExtremeNaughtsAndCrosses() {
-    const [inputGridSize, setInputGridSize] = useState<number>(10)
-    const [inputWinningNumberInARow, setInputWinningNumberInARow] = useState<number>(10)
+    const inputGridSize = useRecoilValue(gridSizeAtom)
+    const inputWinningNumberInARow = useRecoilValue(winningNumberInARowAtom)
 
     return (
     <>
-        <ExtremeNaughtsAndCrossesControls onOptionsSubmitted={({newGridSize, newWinningNumberInARow}) => {setInputGridSize(newGridSize); setInputWinningNumberInARow(newWinningNumberInARow)}}/>
+        <ExtremeNaughtsAndCrossesControls />
         <ExtremeNaughtsAndCrossesGame
             key={`${inputGridSize}${inputWinningNumberInARow}`}
             gridSize={inputGridSize}
-            players={["⚔", "🔥", "📘"]}
+            players={["🧧", "📀", "🐸"]}
             numberOfPiecesInARowRequiredToWin={inputWinningNumberInARow} />
     </>)
 }

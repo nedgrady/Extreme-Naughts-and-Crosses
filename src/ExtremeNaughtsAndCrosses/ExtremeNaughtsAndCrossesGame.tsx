@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import useElementDimensions from "useElementDimensions"
+import useElementDimensions from "../useElementDimensions"
 import Board from "./Board"
 import styled from 'styled-components'
 
@@ -45,7 +45,6 @@ function ExtremeNaughtsAndCrossesGame(
     return (
         <FlexyGameContainer ref={gameContainerRef}>
             <div style={{padding: "20px"}}>
-                <h5>Extreme Naughts and Crosses</h5>
                 <p>{whosTurnIsIt} To Move</p>
                 <p>{numberOfPiecesInARowRequiredToWin} in a row to win</p>
                 {winner && <h4><strong>{winner} Wins!</strong></h4>}

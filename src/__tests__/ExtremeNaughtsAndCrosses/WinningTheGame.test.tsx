@@ -1,4 +1,5 @@
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
+import {render} from 'testUtils'
 import userEvent from '@testing-library/user-event'
 import ExtremeNaughtsAndCrossesGame from 'ExtremeNaughtsAndCrosses/ExtremeNaughtsAndCrossesGame'
 import React from 'react'

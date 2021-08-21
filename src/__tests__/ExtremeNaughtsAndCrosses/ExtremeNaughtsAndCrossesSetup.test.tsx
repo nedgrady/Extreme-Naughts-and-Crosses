@@ -1,7 +1,9 @@
-import { render, screen } from '@testing-library/react'
+import { screen, waitFor } from '@testing-library/react'
 import ExtremeNaughtsAndCrosses from 'ExtremeNaughtsAndCrosses/ExtremeNaughtsAndCrosses'
 import React from 'react'
 import userEvent from '@testing-library/user-event'
+import {render} from 'testUtils'
+
 test('Starts with a default grid size of 10', () => {
     render(<ExtremeNaughtsAndCrosses />)
 
@@ -14,7 +16,6 @@ test('Renders a Grid Size numerical input, containing a default of 10', () => {
     expect(screen.getByRole('spinbutton', { name: "Grid Size"})).toBeInTheDocument()
 })
 
-
 test('Renders a "Reset" button', () => {
     render(<ExtremeNaughtsAndCrosses />)
 
@@ -22,7 +23,7 @@ test('Renders a "Reset" button', () => {
 })
 
 const gridSizeCases = [3, 5, 10, 14]
-test.each(gridSizeCases)('Entering a Grid Size of %s then clicking "Reset" displays a grid of size %s', (inputGridSize) => {
+test.each(gridSizeCases)('Entering a Grid Size of %s then clicking "Reset" displays a grid of size %s', async (inputGridSize) => {
     render(<ExtremeNaughtsAndCrosses />)
 
     const gridSizeInput = screen.getByRole('spinbutton', { name: "Grid Size"})
@@ -31,8 +32,9 @@ test.each(gridSizeCases)('Entering a Grid Size of %s then clicking "Reset" displ
 
     const resetButton = screen.getByRole('button', { name: "Reset"})
     userEvent.click(resetButton)
-
-    expect(screen.getAllByRole('cell', { name: ""})).toHaveLength(inputGridSize * inputGridSize)
+    await waitFor(() => {
+        expect(screen.getAllByRole('cell', { name: ""})).toHaveLength(inputGridSize * inputGridSize)
+    })
 })
 
 test('Renders a "Reset" button', () => {
@@ -47,7 +49,7 @@ test('Renders a numerical input for the number of consecutive pieces to win', ()
     expect(screen.getByRole('spinbutton', { name: "Winning Number in a Row"})).toBeInTheDocument()
 })
 
-test('Entering a number of consective pieces to win changes then clicking refresh changes the number of pieces to win display', () => {
+test('Entering a number of consective pieces to win changes then clicking refresh changes the number of pieces to win display', async () => {
     render(<ExtremeNaughtsAndCrosses />)
 
     const targetNumberInput = screen.getByRole('spinbutton', { name: "Winning Number in a Row"})
@@ -56,11 +58,13 @@ test('Entering a number of consective pieces to win changes then clicking refres
 
     const resetButton = screen.getByRole('button', { name: "Reset"})
     userEvent.click(resetButton)
+    await waitFor(() => {
+        expect(screen.getByText(/2 in a row to win/i, { exact: false })).toBeInTheDocument()
+    })
 
-    expect(screen.getByText(/2 in a row to win/i, { exact: false })).toBeInTheDocument()
 })
 
-test('Submitting number of consecuitive pieces to win clears the board', () => {
+test('Submitting number of consecuitive pieces to win clears the board', async () => {
     render(<ExtremeNaughtsAndCrosses />)
 
     const someSquareInWhichToMakeAMove = screen.getByTestId('square-0-0')
@@ -72,6 +76,7 @@ test('Submitting number of consecuitive pieces to win clears the board', () => {
 
     const resetButton = screen.getByRole('button', { name: "Reset"})
     userEvent.click(resetButton)
-
-    expect(screen.getAllByRole('cell', { name: ""})).toHaveLength(100)
+    await waitFor(() => {
+        expect(screen.getAllByRole('cell', { name: ""})).toHaveLength(100)
+    })
 })
