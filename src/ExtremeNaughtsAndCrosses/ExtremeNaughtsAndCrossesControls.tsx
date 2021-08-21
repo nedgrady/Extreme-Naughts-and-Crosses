@@ -11,12 +11,23 @@ export const winningNumberInARowAtom = atom({
     default: 4
 })
 
+export const controlsValuesAtom = atom({
+    key: "ExtremeNaughtsAndCrossesControls_controlsValues",
+    default: {
+        gridSize: 10,
+        winningNumberInARow: 4,
+        gameId: 1
+    }
+})
+
 export default function ExtremeNaughtsAndCrossesControls() {
     const setInputGridSize = useSetRecoilState(gridSizeAtom)
     const setInputWinningNumberInARow = useSetRecoilState(winningNumberInARowAtom)
+    const setControlsValues = useSetRecoilState(controlsValuesAtom)
 
     const [internalGridSize, setInternalGridSize] = useState<string>("10")
     const [internalWinningNumberInARow, setInternalWinningNumberInARow] = useState<string>("4")
+    const [internalGameId, setInternalGameId] = useState<number>(1)
 
     return (
         <>
@@ -30,7 +41,7 @@ export default function ExtremeNaughtsAndCrossesControls() {
                 value={internalWinningNumberInARow}
                 onChange={(event) => { setInternalWinningNumberInARow(event.target.value) }}
             />
-            <button onClick={() => { setInputGridSize(Number.parseInt(internalGridSize)); setInputWinningNumberInARow(Number.parseInt(internalWinningNumberInARow))}}>Reset</button>
+            <button onClick={() => { setControlsValues({ gridSize: Number.parseInt(internalGridSize), winningNumberInARow: Number.parseInt(internalWinningNumberInARow), gameId: internalGameId+1 }); setInternalGameId(internalGameId+1) }}>Reset</button>
         </>
     )
 }

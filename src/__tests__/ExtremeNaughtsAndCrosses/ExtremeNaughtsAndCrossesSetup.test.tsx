@@ -61,7 +61,6 @@ test('Entering a number of consective pieces to win changes then clicking refres
     await waitFor(() => {
         expect(screen.getByText(/2 in a row to win/i, { exact: false })).toBeInTheDocument()
     })
-
 })
 
 test('Submitting number of consecuitive pieces to win clears the board', async () => {
@@ -76,6 +75,20 @@ test('Submitting number of consecuitive pieces to win clears the board', async (
 
     const resetButton = screen.getByRole('button', { name: "Reset"})
     userEvent.click(resetButton)
+    await waitFor(() => {
+        expect(screen.getAllByRole('cell', { name: ""})).toHaveLength(100)
+    })
+})
+
+test('Resetting without changing the controls still resets the board', async () => {
+    render(<ExtremeNaughtsAndCrosses />)
+
+    const someSquareInWhichToMakeAMove = screen.getByTestId('square-0-0')
+    userEvent.click(someSquareInWhichToMakeAMove)
+
+    const resetButton = screen.getByRole('button', { name: "Reset"})
+    userEvent.click(resetButton)
+
     await waitFor(() => {
         expect(screen.getAllByRole('cell', { name: ""})).toHaveLength(100)
     })
