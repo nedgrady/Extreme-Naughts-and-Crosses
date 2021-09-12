@@ -1,12 +1,12 @@
 import React, { useState } from "react"
-import { atom, useSetRecoilState } from 'recoil'
+import { atom, useRecoilState, useSetRecoilState } from 'recoil'
 
-export const gridSizeAtom = atom({
+export const gridSizeAtom = atom<number | null>({
     key: "gridSize",
     default: 10
 })
 
-export const winningNumberInARowAtom = atom({
+export const winningNumberInARowAtom = atom<number | null>({
     key: "winningNumberInARow",
     default: 4
 })
@@ -21,27 +21,21 @@ export const controlsValuesAtom = atom({
 })
 
 export default function ExtremeNaughtsAndCrossesControls() {
-    const setInputGridSize = useSetRecoilState(gridSizeAtom)
-    const setInputWinningNumberInARow = useSetRecoilState(winningNumberInARowAtom)
-    const setControlsValues = useSetRecoilState(controlsValuesAtom)
-
-    const [internalGridSize, setInternalGridSize] = useState<string>("10")
-    const [internalWinningNumberInARow, setInternalWinningNumberInARow] = useState<string>("4")
-    const [internalGameId, setInternalGameId] = useState<number>(1)
+    const [inputGridSize, setInputGridSize]  = useRecoilState(gridSizeAtom)
+    const [inputWinningNumberInRow, setInputWinningNumberInARow]  = useRecoilState(winningNumberInARowAtom)
 
     return (
         <>
             <label htmlFor="grid-size">Grid Size</label>
             <input type="number" id="grid-size" 
-                value={internalGridSize}
-                onChange={(event) => { setInternalGridSize(event.target.value) }} 
+                value={inputGridSize || ""}
+                onChange={(event) => { setInputGridSize(Number.parseInt(event.target.value) || null) }} 
             />
             <label htmlFor="winning-number-in-a-row">Winning Number in a Row</label>
             <input type="number" id="winning-number-in-a-row"
-                value={internalWinningNumberInARow}
-                onChange={(event) => { setInternalWinningNumberInARow(event.target.value) }}
+                value={inputWinningNumberInRow || ""}
+                onChange={(event) => { setInputWinningNumberInARow(Number.parseInt(event.target.value) || null) }}
             />
-            <button onClick={() => { setControlsValues({ gridSize: Number.parseInt(internalGridSize), winningNumberInARow: Number.parseInt(internalWinningNumberInARow), gameId: internalGameId+1 }); setInternalGameId(internalGameId+1) }}>Reset</button>
         </>
     )
 }
