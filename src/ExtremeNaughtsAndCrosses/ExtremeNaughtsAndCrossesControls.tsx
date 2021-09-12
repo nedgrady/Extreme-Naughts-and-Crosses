@@ -26,16 +26,20 @@ export default function ExtremeNaughtsAndCrossesControls() {
 
     return (
         <>
-            <label htmlFor="grid-size">Grid Size</label>
-            <input type="number" id="grid-size" 
-                value={inputGridSize || ""}
-                onChange={(event) => { setInputGridSize(Number.parseInt(event.target.value) || null) }} 
-            />
-            <label htmlFor="winning-number-in-a-row">Winning Number in a Row</label>
-            <input type="number" id="winning-number-in-a-row"
-                value={inputWinningNumberInRow || ""}
-                onChange={(event) => { setInputWinningNumberInARow(Number.parseInt(event.target.value) || null) }}
-            />
+            <div>
+                <label htmlFor="grid-size">Grid Size</label>
+                <input type="number" id="grid-size"
+                    value={inputGridSize || ""}
+                    onChange={(event) => { setInputGridSize(Number.parseInt(event.target.value) || null) }}
+                />
+            </div>
+            <div>
+                <label htmlFor="winning-number-in-a-row">Winning Number in a Row</label>
+                <input type="number" id="winning-number-in-a-row"
+                    value={inputWinningNumberInRow || ""}
+                    onChange={(event) => { setInputWinningNumberInARow(Number.parseInt(event.target.value) || null) }}
+                />
+            </div>
         </>
     )
 }

@@ -1,35 +1,19 @@
 import React, { useState } from "react"
-import useElementDimensions from "../useElementDimensions"
 import Board from "./Board"
-import styled from 'styled-components'
 
 type BoardState = (string | null)[][];
-
-const FlexyGameContainer = styled.div`
-    @media all and (orientation:portrait) {
-        display: flex;
-        flex-direction: column;
-    }
-
-    @media all and (orientation:landscape) {
-        display: flex;
-        flex-direction: row;
-    }
-
-    text-align: center;
-    height: 100%;
-    max-height: 100%;
-`
 
 function ExtremeNaughtsAndCrossesGame(
     {
         gridSize,
         players,
-        numberOfPiecesInARowRequiredToWin
+        numberOfPiecesInARowRequiredToWin,
+        limitingDimensionInPixels
     }: {
         gridSize: number,
         players: string[],
-        numberOfPiecesInARowRequiredToWin: number
+        numberOfPiecesInARowRequiredToWin: number,
+        limitingDimensionInPixels: number
     }) {
 
     const [boardState, setBoardState] = useState(createInitialEmptyBoardState(gridSize))
@@ -38,22 +22,16 @@ function ExtremeNaughtsAndCrossesGame(
     const numberOfMovesMade = calculateNumberOfMovesMade(boardState)
     const whosTurnIsIt = players[numberOfMovesMade % players.length]
 
-    const [{ width, height }, gameContainerRef] = useElementDimensions()
-
-    const limitingDimensionInPixels = Math.min(width, height)
-
     return (
-        <FlexyGameContainer ref={gameContainerRef}>
-            <div style={{padding: "20px"}}>
-                <p>{whosTurnIsIt} To Move</p>
-                <p>{numberOfPiecesInARowRequiredToWin} in a row to win</p>
-                {winner && <h4><strong>{winner} Wins!</strong></h4>}
-            </div>
+        <>
+            <p>{whosTurnIsIt} To Move</p>
+            <p>{numberOfPiecesInARowRequiredToWin} in a row to win</p>
+            {winner && <h4><strong>{winner} Wins!</strong></h4>}
             <Board
                 boardState={boardState}
                 onPiecePlaced={handlePiecePlaced}
                 limitingDimensionInPixels={limitingDimensionInPixels} />
-        </FlexyGameContainer>)
+        </>)
 
     function handlePiecePlaced(x: number, y: number) {
 
